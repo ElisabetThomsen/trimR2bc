@@ -8,8 +8,10 @@ Unit tests for testing trimR2bc.py
 Tests:
     - There are equal amount of lines in R2 file before and after trim.
     - The trimmed reads are of equal or shorter length than the untrimmed reads.
-    - The quality line is the same length as the read line.
-    - The trimmed file is keeping the rules of fastq format.
+    - The trimmed file is keeping the rules of fastq format:
+        * Line 1 has to start with '@'
+        * Line 3 has to start with '+'
+        * The quality line (line 4) is the same length as the read line (line 2).
 
 Usage: ./unit_tests.py <rawR2file> <trimmedR2file>
 """
@@ -44,24 +46,28 @@ def equal_lines(rawfile, trimfile):
 
 # Test: Trimmed reads are not shorter
 def trimmed_read_length(rawfile, trimfile):
-
     linecount = 0
     for rawline, trimline in zip(rawfile, trimfile):
         if linecount == 2:
             assert len(rawline) >= len(trimline), "Trimmed read is longer than untrimmed read!"
-        if linecount == 4:
+        elif linecount == 4:
             linecount = 0
 
 # Test: Trimmed quality score line is same length as trimmed read
-def trimmed_QSline_length(trimfile):
-
+def fastq_format(trimfile):
     linecount = 0
     for line in trimfile:
-        if linecount == 2:
+        if linecount == 1:
+            assert line[0] == b'@', "Fastq-format violated: Line 1 has to start with '@'"
+        elif linecount == 2:
             readlen = len(line)
-        if linecount == 4:
-            assert len(line) == readlen, "Read line and QS line have unequal length in trimmed file!"
+            assert line[5] in 'AGCTYRWSKMDVHBXN-', "Fastq-format violation: Line 2 can only contain AGCTYRWSKMDVHBXN-"
+        elif linecount == 3:
+            assert line[0] == b'+', "Fastq-format violated: Line 3 has to start with '+'"
+        elif linecount == 4:
+            assert len(line) == readlen, "Fastq-format violated: Read line and QS line have unequal length in trimmed file!"
             linecount = 0
+
 
 # Main program
 if __name__ == '__main__':
@@ -89,7 +95,7 @@ if __name__ == '__main__':
 
     # Check that trimmed quality score line is same length as trimmed read line
     trimfile.seek(0)
-    trimmed_QSline_length(trimfile)
+    fastq_format(trimfile)
 
     # Close files
     rawfile.close()
