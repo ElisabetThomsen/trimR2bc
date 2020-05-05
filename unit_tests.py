@@ -83,7 +83,14 @@ if __name__ == '__main__':
     equal_lines(rawfile, trimfile)
 
     # Check that trimmed read is not longer than untrimmed read
+    rawfile.seek(0)
+    trimfile.seek(0)
     trimmed_read_length(rawfile, trimfile)
 
     # Check that trimmed quality score line is same length as trimmed read line
+    trimfile.seek(0)
     trimmed_QSline_length(trimfile)
+
+    # Close files
+    rawfile.close()
+    trimfile.close()
