@@ -7,7 +7,11 @@ Linked reads have a barcode, which is the 16 first bases in R1. The barcode is a
 
 The barcode is removed from R1 by the barcode-aware aligners.
 
-If the insert size is of propper length the barcode will not be present in R2. On the other hand, if the insert size is too short this will lead to sequencing the barcode in the end of R2 and thus leading to barcode contamination. This contamination can act like adapter contamination, which interferes with the mapping of the reads and increases the risk of calling false positive variants.
+If the insert size is of propper length the barcode will not be present in R2 (image upper). On the other hand, if the insert size is too short this will lead to sequencing the barcode in the end of R2 and thus leading to barcode contamination (image lower).
+
+![Explaining how short insert size leads to barcode contamination](github_insertsize.PNG)
+
+This contamination can act like adapter contamination, which interferes with the mapping of the reads and increases the risk of calling false positive variants.
 
 trimR2bc removes the barcode contamination from R2.
 
