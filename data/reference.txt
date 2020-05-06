@@ -1,0 +1,2 @@
+These are the first 1000 reads (4000 lines) from the "NA12878 Germline Exome v2" dataset found here:
+https://support.10xgenomics.com/genome-exome/datasets
