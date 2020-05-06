@@ -10,6 +10,7 @@ Tests:
     - The trimmed reads are of equal or shorter length than the untrimmed reads.
     - The trimmed file is keeping the rules of fastq format:
         * Line 1 has to start with '@'
+        * Line 2 has the sequence letters which can be: AGCTYRWSKMDVHBXN-
         * Line 3 has to start with '+'
         * The quality line (line 4) is the same length as the read line (line 2).
 
