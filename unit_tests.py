@@ -54,7 +54,7 @@ def trimmed_read_length(rawfile, trimfile):
         elif linecount == 4:
             linecount = 0
 
-# Test: Trimmed quality score line is same length as trimmed read
+# Test: Trimmed file is not violating fastq-format
 def fastq_format(trimfile):
     linecount = 0
     for line in trimfile:
@@ -94,7 +94,7 @@ if __name__ == '__main__':
     trimfile.seek(0)
     trimmed_read_length(rawfile, trimfile)
 
-    # Check that trimmed quality score line is same length as trimmed read line
+    # Check that trimmed file is not violating fastq-format
     trimfile.seek(0)
     fastq_format(trimfile)
 
