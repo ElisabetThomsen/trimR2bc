@@ -101,12 +101,8 @@ print("Whitelistfile:", whitelistfile)
 # Make barcodelist (set)
 barcodelist = set()
 
-print("Making the barcodelist ...")
-
 for line in barcodefile:
     barcodelist.add(line[:-1])
-
-print("Done!")
 
 
 # Initializing
@@ -240,12 +236,21 @@ print('BCtrimmedfile:', outfilename)
 # Print stats
 print('R2_Stats:')
 print('Total_reads:', readcount)
-perc = (trimfbccount/readcount) * 100
+if trimfbccount != 0:
+    perc = (trimfbccount/readcount) * 100
+else:
+    perc = 0
 print('BCtrimmed(0_mismatch):', trimfbccount, '(' + '{:.2f}'.format(perc) + '%)')
-perc = (trimhbccount/readcount) * 100
+if trimhbccount != 0:
+    perc = (trimhbccount/readcount) * 100
+else:
+    perc = 0
 print('BCtrimmed(1_mismatch):', trimhbccount, '(' + '{:.2f}'.format(perc) + '%)')
 print('Total_bases:', totalbp)
-perc = (totalbptrim/totalbp) * 100
+if totalbptrim != 0:
+    perc = (totalbptrim/totalbp) * 100
+else:
+    perc = 0
 print('Total_bases_trimmed:', totalbptrim, '(' + '{:.2f}'.format(perc) + '%)')
 print('\n')
 
