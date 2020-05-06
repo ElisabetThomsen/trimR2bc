@@ -25,7 +25,7 @@ trimR2bc is used as follows:
 
 ## Description ##
 
-Program meant for linked reads. It trims barcodes off R2 if the insert size was too short and therefore leads to contamination.
+Program meant for linked reads. It trims barcodes off R2 if the insert size was too short and therefore lead to contamination.
 Checks if the 16 first bases in R1 are barcodes in the whitelist.
 If positive, it reverse compliments the barcode, and checks if the rev_barcode is in the corresponding R2. If negative, it searches for rev_bc with one mismatch.
 Searches from the 5' end and cuts the first match it finds.
@@ -36,3 +36,4 @@ After trim it checks if line 2 contains nothing (''). If true, replaces '' with 
 **Input**: R1 and R2 must be in two seperate fastq files. If they are gzipped, they must end with '.gz'.
 
 **Output**: A barcode trimmed R2 fastq file (not gzipped).
+Stats printed in the terminal or in a log file if using "1>>" as in the example above.
